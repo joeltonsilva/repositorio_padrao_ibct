@@ -38,14 +38,18 @@
 </div>
 </main>
             <%-- Page footer --%>
-             <footer class="navbar navbar-inverse navbar-bottom">
-          
-
-	     
-             <div id="footer_feedback" class="pull-right">  
-                          
-                                <img width="120px"  src="<%= request.getContextPath() %>/image/ibict.jpeg">
-								
+             <footer class="navbar navbar-footer">
+             <div id="designedby" class="container text-muted">
+			<div id="footer_feedback" class="pull-right">                                    
+                                <p class="text-muted">
+                                <a target="_blank" href="<%= request.getContextPath() %>/feedback"></a>
+                                <a href="<%= request.getContextPath() %>/htmlmap"></a></p>
+								<a href=""><img width = "145"
+                                    src="<%= request.getContextPath() %>/image/ibict.png"
+                                    alt="logo-ibict" /></a>
+								<a href=""><img width = "360"
+                                    src="<%= request.getContextPath() %>/image/mctic.png"
+                                    alt="logo-mctic" /></a>
                                 </div>
 			</div>
     </footer>

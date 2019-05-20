@@ -4608,7 +4608,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
   color: #ffffff;
 }
 
-.breadcrumb {
+/*.breadcrumb {
   padding: 8px 15px;
   margin-bottom: 20px;
   list-style: none;
@@ -4628,7 +4628,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 
 .breadcrumb > .active {
   color: #999999;
-}
+} */
 
 .pagination {
   display: inline-block;

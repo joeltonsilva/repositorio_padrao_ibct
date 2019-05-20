@@ -48,14 +48,14 @@
 	{
 		collection = (Collection) bi.getBrowseContainer();
 	}
-	
+
 	if (community != null)
 	{
-		scope = "\"" + community.getMetadata("name") + "\"";
+		scope = "\"" + community.getName() + "\"";
 	}
 	if (collection != null)
 	{
-		scope = "\"" + collection.getMetadata("name") + "\"";
+		scope = "\"" + collection.getName() + "\"";
 	}
 	
 	type = bix.getName();
@@ -187,11 +187,11 @@
 	    for (char c = 'A'; c <= 'Z'; c++)
 	    {
 %>
-        <a class="label label-default"href="<%= sharedLink %>&amp;starts_with=<%= c %>"><%= c %></a>
+        <a href="<%= sharedLink %>&amp;starts_with=<%= c %>"><%= c %></a>
 <%
 	    }
 %>
-		<br/>		<br/>
+		<br/>
 		<label for="starts_with"><fmt:message key="browse.nav.enter"/></label>
 		<input type="text" name="starts_with"/>
 		<input type="submit" class="btn btn-default" value="<fmt:message key="browse.nav.go"/>" />

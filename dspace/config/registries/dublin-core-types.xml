@@ -124,199 +124,12 @@
     <scope_note></scope_note>
   </dc-type>
 
-<!-- Novos Metadados Contributor -->
-
   <dc-type>
 	<schema>dc</schema>
     <element>contributor</element>
-    <qualifier>advisor1</qualifier>
+    <qualifier>other</qualifier>
     <scope_note></scope_note>
   </dc-type>
-
-  <dc-type>
-	<schema>dc</schema>
-    <element>contributor</element>
-    <qualifier>advisor1ID</qualifier>
-    <scope_note></scope_note>
-  </dc-type>
-
-  <dc-type>
-	<schema>dc</schema>
-    <element>contributor</element>
-    <qualifier>advisor1Lattes</qualifier>
-    <scope_note></scope_note>
-  </dc-type>
-
-
-  <dc-type>
-	<schema>dc</schema>
-    <element>contributor</element>
-    <qualifier>advisor2</qualifier>
-    <scope_note></scope_note>
-  </dc-type>
-
-  <dc-type>
-	<schema>dc</schema>
-    <element>contributor</element>
-    <qualifier>advisor2ID</qualifier>
-    <scope_note></scope_note>
-  </dc-type>
-
-  <dc-type>
-	<schema>dc</schema>
-    <element>contributor</element>
-    <qualifier>advisor2Lattes</qualifier>
-    <scope_note></scope_note>
-  </dc-type>
-
-  <dc-type>
-	<schema>dc</schema>
-    <element>contributor</element>
-    <qualifier>advisor-co1</qualifier>
-    <scope_note></scope_note>
-  </dc-type>
-
-  <dc-type>
-	<schema>dc</schema>
-    <element>contributor</element>
-    <qualifier>advisor-co1ID</qualifier>
-    <scope_note></scope_note>
-  </dc-type>
-
-  <dc-type>
-	<schema>dc</schema>
-    <element>contributor</element>
-    <qualifier>advisor-co1Lattes</qualifier>
-    <scope_note></scope_note>
-  </dc-type>
-
-  <dc-type>
-	<schema>dc</schema>
-    <element>contributor</element>
-    <qualifier>advisor-co2</qualifier>
-    <scope_note></scope_note>
-  </dc-type>
-
-  <dc-type>
-	<schema>dc</schema>
-    <element>contributor</element>
-    <qualifier>advisor-co2ID</qualifier>
-    <scope_note></scope_note>
-  </dc-type>
-
-  <dc-type>
-	<schema>dc</schema>
-    <element>contributor</element>
-    <qualifier>advisor-co2Lattes</qualifier>
-    <scope_note></scope_note>
-  </dc-type>
-
-  <dc-type>
-	<schema>dc</schema>
-    <element>contributor</element>
-    <qualifier>referee1</qualifier>
-    <scope_note></scope_note>
-  </dc-type>
-
-  <dc-type>
-	<schema>dc</schema>
-    <element>contributor</element>
-    <qualifier>referee1ID</qualifier>
-    <scope_note></scope_note>
-  </dc-type>
-
-  <dc-type>
-	<schema>dc</schema>
-    <element>contributor</element>
-    <qualifier>referee1Lattes</qualifier>
-    <scope_note></scope_note>
-  </dc-type>
-
-  <dc-type>
-	<schema>dc</schema>
-    <element>contributor</element>
-    <qualifier>referee2</qualifier>
-    <scope_note></scope_note>
-  </dc-type>
-
-  <dc-type>
-	<schema>dc</schema>
-    <element>contributor</element>
-    <qualifier>referee2ID</qualifier>
-    <scope_note></scope_note>
-  </dc-type>
-
-  <dc-type>
-	<schema>dc</schema>
-    <element>contributor</element>
-    <qualifier>referee2Lattes</qualifier>
-    <scope_note></scope_note>
-  </dc-type>
-
-  <dc-type>
-	<schema>dc</schema>
-    <element>contributor</element>
-    <qualifier>referee3</qualifier>
-    <scope_note></scope_note>
-  </dc-type>
-
-  <dc-type>
-	<schema>dc</schema>
-    <element>contributor</element>
-    <qualifier>referee3ID</qualifier>
-    <scope_note></scope_note>
-  </dc-type>
-
-  <dc-type>
-	<schema>dc</schema>
-    <element>contributor</element>
-    <qualifier>referee3Lattes</qualifier>
-    <scope_note></scope_note>
-  </dc-type>
-
-  <dc-type>
-	<schema>dc</schema>
-    <element>contributor</element>
-    <qualifier>referee4</qualifier>
-    <scope_note></scope_note>
-  </dc-type>
-
-  <dc-type>
-	<schema>dc</schema>
-    <element>contributor</element>
-    <qualifier>referee4ID</qualifier>
-    <scope_note></scope_note>
-  </dc-type>
-
-  <dc-type>
-	<schema>dc</schema>
-    <element>contributor</element>
-    <qualifier>referee4Lattes</qualifier>
-    <scope_note></scope_note>
-  </dc-type>
-
-  <dc-type>
-	<schema>dc</schema>
-    <element>contributor</element>
-    <qualifier>referee5</qualifier>
-    <scope_note></scope_note>
-  </dc-type>
-
-  <dc-type>
-	<schema>dc</schema>
-    <element>contributor</element>
-    <qualifier>referee5ID</qualifier>
-    <scope_note></scope_note>
-  </dc-type>
-
-  <dc-type>
-	<schema>dc</schema>
-    <element>contributor</element>
-    <qualifier>referee5Lattes</qualifier>
-    <scope_note></scope_note>
-  </dc-type>
-
-<!-- Fim dos novos metadados Contributor -->
 
   <dc-type>
 	<schema>dc</schema>
@@ -336,21 +149,6 @@
 	<schema>dc</schema>
     <element>creator</element>
     <!-- unqualified -->
-    <scope_note>Do not use; only for harvested metadata.</scope_note>
-  </dc-type>
-
-  <dc-type>
-	<schema>dc</schema>
-    <element>creator</element>
-    <qualifier>ID</qualifier>
-    <scope_note>Do not use; only for harvested metadata.</scope_note>
-  </dc-type>
-
-
-  <dc-type>
-	<schema>dc</schema>
-    <element>creator</element>
-    <qualifier>Lattes</qualifier>
     <scope_note>Do not use; only for harvested metadata.</scope_note>
   </dc-type>
 
@@ -424,42 +222,6 @@
     of non-DSpace format of this item</scope_note>
   </dc-type>
 
-  <dc-type>
-	<schema>dc</schema>
-    <element>citation</element>
-    <qualifier>volume</qualifier>
-    <scope_note></scope_note>
-  </dc-type>
-
-  <dc-type>
-	<schema>dc</schema>
-    <element>citation</element>
-    <qualifier>issue</qualifier>
-    <scope_note></scope_note>
-  </dc-type>
-
-  <dc-type>
-	<schema>dc</schema>
-    <element>citation</element>
-    <qualifier>spage</qualifier>
-    <scope_note></scope_note>
-  </dc-type>
-
-  <dc-type>
-	<schema>dc</schema>
-    <element>citation</element>
-    <qualifier>epage</qualifier>
-    <scope_note></scope_note>
-  </dc-type>
-
-  <!-- Novo Identifier -->
-  <dc-type>
-    <schema>dc</schema>
-    <element>identifier</element>
-    <qualifier>doi</qualifier>
-    <scope_note></scope_note>
-  </dc-type>
-
   <!-- Used by system: do not remove -->
   <dc-type>
 	<schema>dc</schema>
@@ -531,14 +293,6 @@
     <scope_note>Abstract or summary.</scope_note>
   </dc-type>
 
-  <!-- Description resumo -->
-  <dc-type>
-	<schema>dc</schema>
-    <element>description</element>
-    <qualifier>resumo</qualifier>
-    <scope_note></scope_note>
-  </dc-type>
-
   <!-- Used by system: do not remove -->
   <dc-type>
 	<schema>dc</schema>
@@ -577,7 +331,7 @@
     <scope_note>Uniform Resource Identifier pointing to description of
     this item.</scope_note>
   </dc-type>
-  
+
   <!-- Used by system: do not remove -->
   <dc-type>
 	<schema>dc</schema>
@@ -631,34 +385,6 @@
     <element>publisher</element>
     <!-- unqualified -->
     <scope_note>Entity responsible for publication, distribution, or imprint.</scope_note>
-  </dc-type>
-  <!-- Novos metadados publisher -->
-  <dc-type>
-	<schema>dc</schema>
-    <element>publisher</element>
-    <qualifier>country</qualifier>
-    <scope_note></scope_note>
-  </dc-type>
-
-  <dc-type>
-	<schema>dc</schema>
-    <element>publisher</element>
-    <qualifier>department</qualifier>
-    <scope_note></scope_note>
-  </dc-type>
-
-  <dc-type>
-	<schema>dc</schema>
-    <element>publisher</element>
-    <qualifier>program</qualifier>
-    <scope_note></scope_note>
-  </dc-type>
-
-  <dc-type>
-	<schema>dc</schema>
-    <element>publisher</element>
-    <qualifier>initials</qualifier>
-    <scope_note></scope_note>
   </dc-type>
 
   <dc-type>
@@ -753,14 +479,6 @@
     <qualifier>uri</qualifier>
     <scope_note>References Uniform Resource Identifier for related item.</scope_note>
   </dc-type>
-  
-  <dc-type>
-	<schema>dc</schema>
-    <element>relation</element>
-    <qualifier>references</qualifier>
-    <scope_note></scope_note>
-  </dc-type>
-
 
   <dc-type>
 	<schema>dc</schema>
@@ -827,14 +545,6 @@
     <scope_note>Library of Congress Subject Headings</scope_note>
   </dc-type>
 
-  <!-- CNPQ adicionado -->	
-  <dc-type>
-	<schema>dc</schema>
-    <element>subject</element>
-    <qualifier>cnpq</qualifier>
-    <scope_note></scope_note>
-  </dc-type>
-
   <dc-type>
 	<schema>dc</schema>
     <element>subject</element>
@@ -888,19 +598,367 @@
         <qualifier>license</qualifier>
         <scope_note></scope_note>
     </dc-type>
-
-      <dc-type>
+	
+	<!-- Novos Metadados -->
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>creator</element>
+        <qualifier>ID</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>creator</element>
+        <qualifier>Lattes</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>contributor</element>
+        <qualifier>advisor1</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>contributor</element>
+        <qualifier>advisor1ID</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>contributor</element>
+        <qualifier>advisor1Lattes</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>contributor</element>
+        <qualifier>advisor1Lattes</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>contributor</element>
+        <qualifier>advisor2</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>contributor</element>
+        <qualifier>advisor2ID</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>contributor</element>
+        <qualifier>advisor2Lattes</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>contributor</element>
+        <qualifier>advisor-co1</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>contributor</element>
+        <qualifier>advisor-co1ID</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>contributor</element>
+        <qualifier>advisor-co1Lattes</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>contributor</element>
+        <qualifier>advisor-co2</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>contributor</element>
+        <qualifier>advisor-co2ID</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>contributor</element>
+        <qualifier>advisor-co2Lattes</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>contributor</element>
+        <qualifier>referee1</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>contributor</element>
+        <qualifier>referee1ID</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>contributor</element>
+        <qualifier>referee1Lattes</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>contributor</element>
+        <qualifier>referee2</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>contributor</element>
+        <qualifier>referee2ID</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>contributor</element>
+        <qualifier>referee2Lattes</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>contributor</element>
+        <qualifier>referee3</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>contributor</element>
+        <qualifier>referee3ID</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>contributor</element>
+        <qualifier>referee3Lattes</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>contributor</element>
+        <qualifier>referee4</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>contributor</element>
+        <qualifier>referee4ID</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>contributor</element>
+        <qualifier>referee4Lattes</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>contributor</element>
+        <qualifier>referee5</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>contributor</element>
+        <qualifier>referee5ID</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>contributor</element>
+        <qualifier>referee5Lattes</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>identifier</element>
+        <qualifier>doi</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>description</element>
+        <qualifier>resumo</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>publisher</element>
+        <qualifier>country</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>publisher</element>
+        <qualifier>department</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>publisher</element>
+        <qualifier>program</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>publisher</element>
+        <qualifier>initials</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>subject</element>
+        <qualifier>cnpq</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
         <schema>dc</schema>
         <element>thumbnail</element>
         <qualifier>url</qualifier>
         <scope_note></scope_note>
     </dc-type>
-
-    <dc-type>
-    <schema>dc</schema>
-    <element>audience</element>
-    <qualifier>educationlevel</qualifier>
-    <scope_note></scope_note>
-  </dc-type>
-
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>citation</element>
+        <qualifier>volume</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>citation</element>
+        <qualifier>issue</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>citation</element>
+        <qualifier>spage</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>citation</element>
+        <qualifier>epage</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>audience</element>
+        <qualifier>educationlevel</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	<dc-type>
+        <schema>dc</schema>
+        <element>relation</element>
+        <qualifier>references</qualifier>
+        <scope_note></scope_note>
+    </dc-type>
+	
+	
+	
+	
 </dspace-dc-types>
+
+<!-- 
+Campos que necessitam ser adicionados ao esquema dublin core padrão do DSpace
+
+dc.creator.ID  											OK                                      
+dc.creator.Lattes										OK										
+dc.contributor.advisor1									OK								
+dc.contributor.advisor1ID								OK								
+dc.contributor.advisor1Lattes							OK							
+dc.contributor.advisor2									OK									
+dc.contributor.advisor2ID								OK								
+dc.contributor.advisor2Lattes							OK
+dc.contributor.advisor-co1								OK								
+dc.contributor.advisor-co1ID							OK				
+dc.contributor.advisor-co1Lattes						OK				
+dc.contributor.advisor-co2								OK							
+dc.contributor.advisor-co2ID							OK				
+dc.contributor.advisor-co2Lattes						OK				
+dc.contributor.referee1									OK							
+dc.contributor.referee1ID								OK						
+dc.contributor.referee1Lattes							OK					
+dc.contributor.referee2									OK					
+dc.contributor.referee2ID								OK					
+dc.contributor.referee2Lattes							OK						
+dc.contributor.referee3									OK						
+dc.contributor.referee3ID								OK							
+dc.contributor.referee3Lattes							OK							
+dc.contributor.referee4									OK							
+dc.contributor.referee4ID								OK							
+dc.contributor.referee4Lattes							OK						
+dc.contributor.referee5									OK							
+dc.contributor.referee5ID								OK							
+dc.contributor.referee5Lattes							OK						
+dc.identifier.doi										OK						
+dc.description.resumo									OK								
+dc.publisher.country									OK								
+dc.publisher.department									OK							
+dc.publisher.program									OK							
+dc.publisher.initials									OK								
+dc.rights.uri											OK								
+dc.subject.cnpq											OK					
+dc.thumbnail.url										OK								
+dc.citation.volume										OK										
+dc.citation.issue										OK										
+dc.citation.spage										OK								
+dc.citation.epage										OK									
+dc.audience.educationlevel 								OK
+dc.relation.references									OK				
+-->

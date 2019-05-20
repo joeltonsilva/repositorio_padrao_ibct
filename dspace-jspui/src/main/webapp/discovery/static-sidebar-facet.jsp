@@ -16,7 +16,6 @@
   -    discovery.searchScope - the search scope 
   --%>
 
-<%@page import="org.dspace.app.webui.util.UIUtil"%>
 <%@page import="org.dspace.discovery.configuration.DiscoverySearchFilterFacet"%>
 <%@ page import="java.util.HashMap"%>
 <%@ page import="java.util.Set"%>
@@ -27,18 +26,7 @@
 <%@ page import="org.apache.commons.lang.StringUtils"%>
 
 <%
-
-	String currentPage = UIUtil.getOriginalURL(request);
-	int c = currentPage.indexOf( '?' );
-	if( c > -1 )
-	{
-	    currentPage = currentPage.substring( 0, c );
-	}
-	
 	boolean brefine = false;
-
-	int discovery_panel_cols = 12;
-	int discovery_facet_cols = 4;
 	
 	Map<String, List<FacetResult>> mapFacetes = (Map<String, List<FacetResult>>) request.getAttribute("discovery.fresults");
 	List<DiscoverySearchFilterFacet> facetsConf = (List<DiscoverySearchFilterFacet>) request.getAttribute("facetsConfig");
@@ -73,15 +61,11 @@
 	if (brefine) {
 %>
 <div class="col-md-<%= discovery_panel_cols %>">
-
-<%-- <h3 class="facets"><fmt:message key="jsp.search.facet.refine" /></h3> --%>
+<%--<h3 class="facets"><fmt:message key="jsp.search.facet.refine" /></h3> --%>
 <div id="facets" class="facetsBox row panel">
 <%
-	int i = 0;
 	for (DiscoverySearchFilterFacet facetConf : facetsConf)
 	{
-		i++;
-		
     	String f = facetConf.getIndexFieldName();
     	List<FacetResult> facet = mapFacetes.get(f);
  	    if (facet == null)
@@ -94,72 +78,56 @@
  	    }
 	    String fkey = "jsp.search.facet.refine."+f;
 	    int limit = facetConf.getFacetLimit()+1;
+		
 	    %>
-       <%
-       	boolean renderDiv = request.getAttribute("createRootDiv") != null;
-    	if(renderDiv) {
-    	%>
-	    <div id="facet_<%= f %>" class="col-md-<%= discovery_facet_cols %>">
-	    <%
-    	}
-	    %>
-	    	<div class="panel panel-success <%= renderDiv ? ("colorborder" + i % 3) : "" %>">
-	    		
-	    		<%
-				    int currFp = UIUtil.getIntParameter(request, f+"_page");
-	    		 	boolean isSelected = request.getParameter(f+ "_page") != null;
-	    		%>
-	    	
-		    	<div class="panel-heading facet-panel clickable-panel <%= renderDiv ? ("color" + i % 3) : "" %>"><fmt:message key="<%= fkey %>" /><span class="glyphicon glyphicon-plus pull-right"></span></div>
-		    		<ul class="list-group hideFacets" <%= isSelected ? "style=\"display:block\";" : "" %> ><%
-					    int idx = 1;
-					    if (currFp < 0)
-					    {
-					        currFp = 0;
-					    }
-					    if (facet != null)
-					    {
-						    for (FacetResult fvalue : facet)
-						    { 
-						        if (idx != limit)
-						        {
-						        %><li class="list-group-item"><span class="badge"><%= fvalue.getCount() %></span> <a href="<%= request.getContextPath()
-						            + searchScope
-					                + "/simple-search?filterquery="+URLEncoder.encode(fvalue.getAsFilterQuery(),"UTF-8")
-					                + "&amp;filtername="+URLEncoder.encode(f,"UTF-8")
-					                + "&amp;filtertype="+URLEncoder.encode(fvalue.getFilterType(),"UTF-8") %>"
-					                title="<fmt:message key="jsp.search.facet.narrow"><fmt:param><%=fvalue.getDisplayedValue() %></fmt:param></fmt:message>">
-					                <%= StringUtils.abbreviate(fvalue.getDisplayedValue(),36) %></a></li><%
-						        }
-						        idx++;
-						    }
-						    if (currFp > 0 || idx > limit)
-						    {
-						        %><li class="list-group-item"><span style="visibility: hidden;">.</span>
-						        <% if (currFp > 0) { %>
-						        <a class="pull-left" href="<%= request.getContextPath()
-						                + searchScope
-						                + "?"+f+"_page="+(currFp-1) + "#" + "facet_" + f %>"><fmt:message key="jsp.search.facet.refine.previous" /></a>
-					            <% } %>
-					            <% if (idx > limit) { %>
-					            <a href="<%= request.getContextPath()
-						            + searchScope
-					                + "?"+f+"_page="+(currFp+1) + "#" + "facet_" + f %>"><span class="pull-right"><fmt:message key="jsp.search.facet.refine.next" /></span></a>
-					            <%
-					            }
-					            %></li><%
-						    }
-					    }
-		    %>	</ul>
-	    </div>
-	      <%
-    	if(renderDiv) {
-    	%>
-   		 </div>
-   		 <%
-    	}
-   		 %>
-   <%
+		<div id="facet_<%= f %>" class="col-md-<%= discovery_facet_cols %>">
+			<div class= "panel panel-success colorborder1">
+				<div id="facet_<%= f %>" class="panel-heading facet-panel clickable-panel color1"><span class="glyphicon glyphicon-plus pull-right"></span>
+					<span class="facetName"><fmt:message key="<%= fkey %>" /></span>
+				</div>		
+				<ul class="list-group hideFacets"><%
+				int idx = 1;
+				int currFp = UIUtil.getIntParameter(request, f+"_page");
+				if (currFp < 0)
+				{
+					currFp = 0;
+				}
+				if (facet != null)
+				{
+					for (FacetResult fvalue : facet)
+					{ 
+						if (idx != limit)
+						{
+						%><li class="list-group-item"><span class="badge"><%= fvalue.getCount() %></span> <a href="<%= request.getContextPath()
+							+ searchScope
+							+ "/simple-search?filterquery="+URLEncoder.encode(fvalue.getAsFilterQuery(),"UTF-8")
+							+ "&amp;filtername="+URLEncoder.encode(f,"UTF-8")
+							+ "&amp;filtertype="+URLEncoder.encode(fvalue.getFilterType(),"UTF-8") %>"
+							title="<fmt:message key="jsp.search.facet.narrow"><fmt:param><%=fvalue.getDisplayedValue() %></fmt:param></fmt:message>">
+							<%= StringUtils.abbreviate(fvalue.getDisplayedValue(),36) %></a></li><%
+						}
+						idx++;
+					}
+					if (currFp > 0 || idx > limit)
+					{
+						%><li class="list-group-item"><span style="visibility: hidden;">.</span>
+						<% if (currFp > 0) { %>
+						<a class="pull-left" href="<%= request.getContextPath()
+								+ searchScope
+								+ "?"+f+"_page="+(currFp-1) %>"><fmt:message key="jsp.search.facet.refine.previous" /></a>
+						<% } %>
+						<% if (idx > limit) { %>
+						<a href="<%= request.getContextPath()
+							+ searchScope
+							+ "?"+f+"_page="+(currFp+1) %>"><span class="pull-right"><fmt:message key="jsp.search.facet.refine.next" /></span></a>
+						<%
+						}
+						%></li><%
+					}
+				}
+				%></ul>
+			</div>
+		</div><%
 	}
 %></div></div><%
 	}

@@ -152,12 +152,10 @@
 	}
 %>
         <div class="row">
-			<div class="col-md-6"> 
+			<div class="col-md-12"> 
 				<label for="eperson_id"><fmt:message key="jsp.dspace-admin.wizard-permissions.click"/></label>
 				<dspace:selecteperson multiple="true" /> 
-			</div>
-						    
-			<div class="col-md-6">						    	
+									    	
 				<label for="eperson_id"><fmt:message key="jsp.dspace-admin.wizard-permissions.click2"/></label>
 				<dspace:selectgroup   multiple="true" />
 			</div>

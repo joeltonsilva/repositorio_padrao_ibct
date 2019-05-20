@@ -24,13 +24,15 @@
 
     <bean id="solrServiceResourceIndexPlugin" class="org.dspace.discovery.SolrServiceResourceRestrictionPlugin" scope="prototype"/>
     <bean id="SolrServiceSpellIndexingPlugin" class="org.dspace.discovery.SolrServiceSpellIndexingPlugin" scope="prototype"/>
+    <bean id="solrServiceMetadataBrowseIndexingPlugin" class="org.dspace.discovery.SolrServiceMetadataBrowseIndexingPlugin" scope="prototype"/>
 
     <alias name="solrServiceResourceIndexPlugin" alias="org.dspace.discovery.SolrServiceResourceRestrictionPlugin"/>
+    
+    <!-- Additional indexing plugin make filtering by has content in original bundle (like pdf's, images) posible via SOLR -->
+    <bean id="hasContentInOriginalBundle" class="org.dspace.discovery.SolrServiceContentInOriginalBundleFilterPlugin"/>
 
-    <!-- Additional indexing plugin to implement the browse system via SOLR -->
-    <bean id="solrBrowseIndexer" scope="prototype"
-          class="org.dspace.browse.SolrBrowseCreateDAO">
-    </bean>
+    <!-- Additional indexing plugin enables searching by filenames and by file descriptions for files in ORIGINAL bundle -->
+    <bean id="solrServiceFileInfoPlugin" class="org.dspace.discovery.SolrServiceFileInfoPlugin"/>
 
     <!--Bean that is used for mapping communities/collections to certain discovery configurations.-->
     <bean id="org.dspace.discovery.configuration.DiscoveryConfigurationService" class="org.dspace.discovery.configuration.DiscoveryConfigurationService">
@@ -99,17 +101,17 @@
 				<ref bean="searchFilterAdvisor" />
 				<ref bean="searchFilterReferees" />
 				<ref bean="searchFilterSubject" />
-				<ref bean="searchFilterCNPq" /> 
+				<ref bean="searchFilterCNPq" />
 				<ref bean="searchFilterPublisher" />
 				<ref bean="searchFilterInitials" />
 				<ref bean="searchFilterProgram" />
-				<ref bean="searchFilterDepartment" />
 				<ref bean="searchFilterSponsorship" />
 				<ref bean="searchFilterType" />
 				<ref bean="searchFilterIssued" />
 				<ref bean="searchFilterAvailable" />
 				<ref bean="searchFilterFormat" />
 				<ref bean="searchFilterAccess" />
+		        <ref bean="searchFilterContentInOriginalBundle"/>
             </list>
         </property>
         <!-- Set TagCloud configuration per discovery configuration -->
@@ -117,17 +119,17 @@
         <!--The search filters which can be used on the discovery search page-->
         <property name="searchFilters">
             <list>
-                        	<ref bean="searchFilterType" />
-				<ref bean="searchFilterTitle" />
-				<ref bean="searchFilterAuthor" />
+				<ref bean="searchFilterType" />
 				<ref bean="searchFilterAdvisor" />
 				<ref bean="searchFilterReferees" />
 				<ref bean="searchFilterContributor" />
 				<ref bean="searchFilterContributorID" />
 				<ref bean="searchFilterAbstract" />
-				<ref bean="searchFilterSubject" />
-				<ref bean="searchFilterCNPq" /> 
-				<ref bean="searchFilterIssued" />
+				<ref bean="searchFilterCNPq" />  
+                <ref bean="searchFilterTitle" />
+                <ref bean="searchFilterAuthor" />
+                <ref bean="searchFilterSubject" />
+                <ref bean="searchFilterIssued" />
 				<ref bean="searchFilterAvailable" />
 				<ref bean="searchFilterAccess" />
 				<ref bean="searchFilterPublisher" />
@@ -137,7 +139,9 @@
 				<ref bean="searchFilterSponsorship" />
 				<ref bean="searchFilterFormat" />
 				<ref bean="searchFilterAll" />
-	
+		        <ref bean="searchFilterContentInOriginalBundle"/>
+           <!-- <ref bean="searchFilterFileNameInOriginalBundle" /> -->
+           <!-- <ref bean="searchFilterFileDescriptionInOriginalBundle" /> -->
             </list>
         </property>
         <!--The sort filters for the discovery search-->
@@ -148,12 +152,13 @@
                 <property name="defaultSortOrder" value="desc"/>
                 <property name="sortFields">
                     <list>
-                        <ref bean="sortAuthor" />
-                        <ref bean="sortDateIssued" />
-                        <ref bean="sortAdvisor" />
-                        <ref bean="sortProgram" />
-                        <ref bean="sortType" />
+						<ref bean="sortAuthor" />
+						<ref bean="sortDateIssued" />
+						<ref bean="sortAdvisor" />
+						<ref bean="sortProgram" />
+						<ref bean="sortType" />  
                         <ref bean="sortTitle" />
+                        
                     </list>
                 </property>
             </bean>
@@ -189,40 +194,19 @@
                             <property name="field" value="dc.contributor.author"/>
                             <property name="snippets" value="5"/>
                         </bean>
-			<bean class="org.dspace.discovery.configuration.DiscoveryHitHighlightFieldConfiguration">
-                            <property name="field" value="dc.creator"/>
-                            <property name="snippets" value="5"/>
-                        </bean>
-                        <bean class="org.dspace.discovery.configuration.DiscoveryHitHighlightFieldConfiguration">
-                            <property name="field" value="dc.contributor.advisor1"/>
-                            <property name="snippets" value="5"/>
-                        </bean>
-                       <bean class="org.dspace.discovery.configuration.DiscoveryHitHighlightFieldConfiguration">
-                            <property name="field" value="dc.contributor.advisor2"/>
-                            <property name="snippets" value="5"/>
-                        </bean>
-			<bean class="org.dspace.discovery.configuration.DiscoveryHitHighlightFieldConfiguration">
-                            <property name="field" value="dc.publisher"/>
-                            <property name="snippets" value="5"/>
-                        </bean>
-			<bean class="org.dspace.discovery.configuration.DiscoveryHitHighlightFieldConfiguration">
-                            <property name="field" value="dc.publisher.program"/>
-                            <property name="snippets" value="5"/>
-                        </bean>
-		    <bean class="org.dspace.discovery.configuration.DiscoveryHitHighlightFieldConfiguration">
-                            <property name="field" value="dc.publisher.department"/>
-                            <property name="snippets" value="5"/>
-                        </bean>
                         <bean class="org.dspace.discovery.configuration.DiscoveryHitHighlightFieldConfiguration">
                             <property name="field" value="dc.description.abstract"/>
                             <property name="maxSize" value="250"/>
                             <property name="snippets" value="2"/>
                         </bean>
+                        <!-- By default, full text snippets are disabled, as snippets of embargoed/restricted bitstreams
+                             may appear in search results when the Item is public. See DS-3498
                         <bean class="org.dspace.discovery.configuration.DiscoveryHitHighlightFieldConfiguration">
                             <property name="field" value="fulltext"/>
                             <property name="maxSize" value="250"/>
                             <property name="snippets" value="2"/>
                         </bean>
+                        -->
                     </list>
                 </property>
             </bean>
@@ -234,10 +218,10 @@
                 <property name="similarityMetadataFields">
                     <list>
                         <value>dc.title</value>
-			<value>dc.contributor.author</value>
-			<value>dc.creator</value>
-                        <value>dc.contributor.advisor1</value>
-                        <value>dc.contributor.advisor2</value>
+                        <value>dc.contributor.author</value>
+                        <value>dc.creator</value>
+						<value>dc.contributor.advisor1</value>
+						<value>dc.contributor.advisor2</value>
                         <value>dc.subject</value>
                     </list>
                 </property>
@@ -259,23 +243,14 @@
         <!--Which sidebar facets are to be displayed (same as defaultConfiguration above)-->
         <property name="sidebarFacets">
             <list>
-				<!-- <ref bean="searchFilterAuthor" />
-				<ref bean="searchFilterAdvisor" />
-				<ref bean="searchFilterReferees" /> -->
-				<ref bean="searchFilterContributor" /> 
-				 <ref bean="searchFilterSubject" /> 
-				<ref bean="searchFilterCNPq" /> 
-				<!-- <ref bean="searchFilterPublisher" />
-				<ref bean="searchFilterInitials" />
-				<ref bean="searchFilterProgram" />
-				<ref bean="searchFilterDepartment" />
-				<ref bean="searchFilterSponsorship" /> -->
+				<ref bean="searchFilterContributor" />
+				<ref bean="searchFilterSubject" />
+				<ref bean="searchFilterCNPq" />
 				<ref bean="searchFilterType" />
 				<ref bean="searchFilterIssued" />
-				<!-- <ref bean="searchFilterAvailable" /> -->
-				<!-- <ref bean="searchFilterFormat" /> -->
-			<!--	<ref bean="searchFilterLicence" /> -->
-			    <ref bean="searchFilterAccess" /> 
+                <ref bean="searchFilterAuthor" />
+				<ref bean="searchFilterAccess" />
+		        <ref bean="searchFilterContentInOriginalBundle"/>
             </list>
         </property>
         <!-- Set TagCloud configuration per discovery configuration -->
@@ -283,7 +258,7 @@
         <!--The search filters which can be used on the discovery search page (same as defaultConfiguration above)-->
         <property name="searchFilters">
             <list>
-            	<ref bean="searchFilterType" />
+				<ref bean="searchFilterType" />
 				<ref bean="searchFilterTitle" />
 				<ref bean="searchFilterAuthor" />
 				<ref bean="searchFilterAdvisor" />
@@ -292,8 +267,8 @@
 				<ref bean="searchFilterContributorID" />
 				<ref bean="searchFilterAbstract" />
 				<ref bean="searchFilterSubject" />
-				<ref bean="searchFilterCNPq" /> 
-				<ref bean="searchFilterIssued" />
+				<ref bean="searchFilterCNPq" />   
+                <ref bean="searchFilterIssued" />
 				<ref bean="searchFilterAvailable" />
 				<ref bean="searchFilterAccess" />
 				<ref bean="searchFilterPublisher" />
@@ -303,6 +278,9 @@
 				<ref bean="searchFilterSponsorship" />
 				<ref bean="searchFilterFormat" />
 				<ref bean="searchFilterAll" />
+		        <ref bean="searchFilterContentInOriginalBundle"/>
+		   <!-- <ref bean="searchFilterFileNameInOriginalBundle" /> -->
+           <!-- <ref bean="searchFilterFileDescriptionInOriginalBundle" /> -->
             </list>
         </property>
         <!--The sort filters for the discovery search (same as defaultConfiguration above)-->
@@ -313,12 +291,13 @@
                 <property name="defaultSortOrder" value="desc"/>
                 <property name="sortFields">
                     <list>
-						<ref bean="sortDateIssued" />
-						<ref bean="sortTitle" />
 						<ref bean="sortAuthor" />
+						<ref bean="sortDateIssued" />
 						<ref bean="sortAdvisor" />
 						<ref bean="sortProgram" />
 						<ref bean="sortType" />
+                        <ref bean="sortTitle" />
+                        
                     </list>
                 </property>
             </bean>
@@ -349,11 +328,14 @@
                             <property name="maxSize" value="250"/>
                             <property name="snippets" value="2"/>
                         </bean>
+                        <!-- By default, full text snippets are disabled, as snippets of embargoed/restricted bitstreams
+                             may appear in search results when the Item is public. See DS-3498
                         <bean class="org.dspace.discovery.configuration.DiscoveryHitHighlightFieldConfiguration">
                             <property name="field" value="fulltext"/>
                             <property name="maxSize" value="250"/>
                             <property name="snippets" value="2"/>
                         </bean>
+                        -->
                     </list>
                 </property>
             </bean>
@@ -453,13 +435,13 @@
 		<!-- <property name="ordering" value="Tag.NameComparatorAsc"/>-->	
     </bean>
     
-<!--Search filter configuration beans-->
+    <!--Search filter configuration beans-->
     <bean id="searchFilterTitle" class="org.dspace.discovery.configuration.DiscoverySearchFilter">
         <property name="indexFieldName" value="title"/>
         <property name="metadataFields">
             <list>
                 <value>dc.title</value>
-		<value>dc.title.alternative</value>
+				<value>dc.title.alternative</value>
             </list>
         </property>
     </bean>
@@ -472,11 +454,12 @@
                 <value>dc.creator</value>
             </list>
         </property>
-        <property name="facetLimit" value="7"/>
-        <property name="sortOrder" value="COUNT"/>
+        <property name="facetLimit" value="10"/>
+        <property name="sortOrderSidebar" value="COUNT"/>
+        <property name="sortOrderFilterPage" value="COUNT"/>
     </bean>
-
-    <bean id="searchFilterAdvisor" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
+	
+	<bean id="searchFilterAdvisor" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
         <property name="indexFieldName" value="advisor"/>
         <property name="metadataFields">
             <list>
@@ -486,8 +469,10 @@
                 <value>dc.contributor.advisor-co2</value>
             </list>
         </property>
-		<property name="facetLimit" value="7"/>
-        <property name="sortOrder" value="COUNT"/>
+		<property name="facetLimit" value="10"/>
+        <property name="sortOrderSidebar" value="COUNT"/>
+		<property name="sortOrderFilterPage" value="COUNT"/>
+		
     </bean>
 	
 	<bean id="searchFilterContributorID" class="org.dspace.discovery.configuration.DiscoverySearchFilter">
@@ -508,7 +493,7 @@
         </property>
     </bean>
 	
-    <bean id="searchFilterReferees" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
+	<bean id="searchFilterReferees" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
         <property name="indexFieldName" value="referees"/>
         <property name="metadataFields">
             <list>
@@ -519,10 +504,10 @@
 		<value>dc.contributor.referee5</value>
             </list>
         </property>
-        <property name="facetLimit" value="7"/>
-        <property name="sortOrder" value="COUNT"/>
+        <property name="facetLimit" value="10"/>
+        <property name="sortOrderSidebar" value="COUNT"/>
+		<property name="sortOrderFilterPage" value="COUNT"/>
     </bean>
-
 	
 	<bean id="searchFilterContributor" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
         <property name="indexFieldName" value="contributor"/>
@@ -541,44 +526,9 @@
 		<value>dc.contributor.referee5</value>
             </list>
         </property>
-        <property name="facetLimit" value="7"/>
-        <property name="sortOrder" value="COUNT"/>
-    </bean>
-
-
-    <bean id="searchFilterSubject" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
-        <property name="indexFieldName" value="subject"/>
-        <property name="metadataFields">
-            <list>
-                <value>dc.subject</value>
-            </list>
-        </property>
-        <property name="facetLimit" value="7"/>
-        <property name="sortOrder" value="COUNT"/>
-    </bean>
-	
-	<bean id="searchFilterCNPq" class="org.dspace.discovery.configuration.HierarchicalSidebarFacetConfiguration">
-		<property name="indexFieldName" value="cnpq"/>
-		<property name="metadataFields">
-			<list>
-				<value>dc.subject.cnpq</value>
-			</list>
-		</property>
-		<property name="sortOrder" value="COUNT"/>
-		<property name="splitter" value="::"/>
-		<property name="skipFirstNodeLevel" value="true"/>
-		<property name="facetLimit" value="7"/>
-	</bean>
-
-    <bean id="searchFilterIssued" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
-        <property name="indexFieldName" value="dateIssued"/>
-        <property name="metadataFields">
-            <list>
-                <value>dc.date.issued</value>
-            </list>
-        </property>
-        <property name="type" value="date"/>
-        <property name="sortOrder" value="VALUE"/>
+        <property name="facetLimit" value="10"/>
+        <property name="sortOrderSidebar" value="COUNT"/>
+		<property name="sortOrderFilterPage" value="COUNT"/>
     </bean>
 	
 	<bean id="searchFilterAvailable" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
@@ -589,29 +539,32 @@
             </list>
         </property>
         <property name="type" value="date"/>
-        <property name="sortOrder" value="VALUE"/>
+        <property name="sortOrderSidebar" value="COUNT"/>
+		<property name="sortOrderFilterPage" value="COUNT"/>
     </bean>
-
-    <bean id="searchFilterPublisher" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
+	
+	<bean id="searchFilterPublisher" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
         <property name="indexFieldName" value="publisher"/>
         <property name="metadataFields">
             <list>
                 <value>dc.publisher</value>
             </list>
         </property>
-        <property name="facetLimit" value="7"/>
-        <property name="sortOrder" value="COUNT"/>
+        <property name="facetLimit" value="10"/>
+        <property name="sortOrderSidebar" value="COUNT"/>
+		<property name="sortOrderFilterPage" value="COUNT"/>
     </bean>
 	
-	 <bean id="searchFilterInitials" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
+	<bean id="searchFilterInitials" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
         <property name="indexFieldName" value="initials"/>
         <property name="metadataFields">
             <list>
                 <value>dc.publisher.initials</value>
             </list>
         </property>
-        <property name="facetLimit" value="7"/>
-        <property name="sortOrder" value="COUNT"/>
+        <property name="facetLimit" value="10"/>
+        <property name="sortOrderSidebar" value="COUNT"/>
+		<property name="sortOrderFilterPage" value="COUNT"/>
     </bean>
 	
 	<bean id="searchFilterProgram" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
@@ -621,10 +574,11 @@
                 <value>dc.publisher.program</value>
             </list>
         </property>
-        <property name="facetLimit" value="7"/>
-        <property name="sortOrder" value="COUNT"/>
+        <property name="facetLimit" value="10"/>
+        <property name="sortOrderSidebar" value="COUNT"/>
+		<property name="sortOrderFilterPage" value="COUNT"/>
     </bean>
-
+	
 	<bean id="searchFilterDepartment" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
         <property name="indexFieldName" value="department"/>
         <property name="metadataFields">
@@ -632,8 +586,9 @@
                 <value>dc.publisher.department</value>
             </list>
         </property>
-        <property name="facetLimit" value="7"/>
-        <property name="sortOrder" value="COUNT"/>
+        <property name="facetLimit" value="10"/>
+        <property name="sortOrderSidebar" value="COUNT"/>
+		<property name="sortOrderFilterPage" value="COUNT"/>
     </bean>
 	
 	<bean id="searchFilterSponsorship" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
@@ -643,18 +598,9 @@
                 <value>dc.description.sponsorship</value>
             </list>
         </property>
-        <property name="facetLimit" value="7"/>
-        <property name="sortOrder" value="COUNT"/>
-    </bean>
-	
-    <bean id="searchFilterType" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
-        <property name="indexFieldName" value="type"/>
-        <property name="metadataFields">
-            <list>
-                <value>dc.type</value>
-            </list>
-        </property>
-        <property name="sortOrder" value="COUNT"/>
+        <property name="facetLimit" value="10"/>
+        <property name="sortOrderSidebar" value="COUNT"/>
+		<property name="sortOrderFilterPage" value="COUNT"/>
     </bean>
 	
 	<bean id="searchFilterFormat" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
@@ -664,8 +610,9 @@
                 <value>dc.format</value>
             </list>
         </property>
-        <property name="facetLimit" value="7"/>
-        <property name="sortOrder" value="COUNT"/>
+        <property name="facetLimit" value="10"/>
+        <property name="sortOrderSidebar" value="COUNT"/>
+		<property name="sortOrderFilterPage" value="COUNT"/>
     </bean>
 	
 	<bean id="searchFilterAccess" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
@@ -675,18 +622,69 @@
                 <value>dc.rights</value>
             </list>
         </property>
-        <property name="sortOrder" value="COUNT"/>
+		<property name="facetLimit" value="7"/>
+        <property name="sortOrderSidebar" value="COUNT"/>
+		<property name="sortOrderFilterPage" value="COUNT"/>
     </bean>
 	
-    <bean id="searchFilterLicence" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
-        <property name="indexFieldName" value="licence"/>
+	<bean id="searchFilterCNPq" class="org.dspace.discovery.configuration.HierarchicalSidebarFacetConfiguration">
+		<property name="indexFieldName" value="cnpq"/>
+		<property name="metadataFields">
+			<list>
+				<value>dc.subject.cnpq</value>
+			</list>
+		</property>
+		<property name="facetLimit" value="10"/>
+		<property name="sortOrderSidebar" value="COUNT"/>
+		<property name="sortOrderFilterPage" value="COUNT"/>
+		<property name="splitter" value="::"/>
+	</bean> 
+	
+	<bean id="searchFilterType" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
+        <property name="indexFieldName" value="type"/>
         <property name="metadataFields">
             <list>
-                <value>dc.rights.uri</value>
+                <value>dc.type</value>
             </list>
         </property>
-        <property name="facetLimit" value="7"/>
-        <property name="sortOrder" value="COUNT"/>
+		<property name="facetLimit" value="10"/>
+        <property name="sortOrderSidebar" value="COUNT"/>
+		<property name="sortOrderFilterPage" value="COUNT"/>
+    </bean>
+
+    <bean id="searchFilterSubject" class="org.dspace.discovery.configuration.HierarchicalSidebarFacetConfiguration">
+        <property name="indexFieldName" value="subject"/>
+        <property name="metadataFields">
+            <list>
+                <value>dc.subject</value>
+            </list>
+        </property>
+        <property name="facetLimit" value="10"/>
+        <property name="sortOrderSidebar" value="COUNT"/>
+        <property name="sortOrderFilterPage" value="COUNT"/>
+        <property name="splitter" value="::"/>
+    </bean>
+
+    <bean id="searchFilterIssued" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
+        <property name="indexFieldName" value="dateIssued"/>
+        <property name="metadataFields">
+            <list>
+                <value>dc.date.issued</value>
+            </list>
+        </property>
+        <property name="type" value="date"/>
+        <property name="sortOrderSidebar" value="COUNT"/>
+        <property name="sortOrderFilterPage" value="COUNT"/>
+    </bean>
+	
+	<bean id="searchFilterAbstract" class="org.dspace.discovery.configuration.DiscoverySearchFilter">
+        <property name="indexFieldName" value="abstract"/>
+        <property name="metadataFields">
+            <list>
+	      <value>dc.description.abstract</value>
+	      <value>dc.description.resumo</value>
+	    </list>
+        </property>
     </bean>
 	
 	<bean id="searchFilterAll" class="org.dspace.discovery.configuration.DiscoverySearchFilter">
@@ -733,22 +731,35 @@
             </list>
         </property>
     </bean>
-    
-    <bean id="searchFilterAbstract" class="org.dspace.discovery.configuration.DiscoverySearchFilter">
-        <property name="indexFieldName" value="abstract"/>
+			
+    <bean id="searchFilterContentInOriginalBundle" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
+        <property name="indexFieldName" value="has_content_in_original_bundle"/>
         <property name="metadataFields">
-            <list>
-	      <value>dc.description.abstract</value>
-	      <value>dc.description.resumo</value>
-	    </list>
+            <list/>
+        </property>
+        <property name="facetLimit" value="2"/>
+        <property name="type" value="standard"/>
+        <property name="sortOrderSidebar" value="COUNT"/>
+        <property name="sortOrderFilterPage" value="COUNT"/>
+    </bean>
+
+    <bean id="searchFilterFileNameInOriginalBundle" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
+        <property name="indexFieldName" value="original_bundle_filenames"/>
+        <property name="metadataFields">
+            <list/>
         </property>
     </bean>
-    
-   
+
+    <bean id="searchFilterFileDescriptionInOriginalBundle" class="org.dspace.discovery.configuration.DiscoverySearchFilterFacet">
+        <property name="indexFieldName" value="original_bundle_descriptions"/>
+        <property name="metadataFields">
+            <list/>
+        </property>
+    </bean>
 
     <!--Sort properties-->
 	
-    <bean id="sortDateIssued" class="org.dspace.discovery.configuration.DiscoverySortFieldConfiguration">
+	<bean id="sortDateIssued" class="org.dspace.discovery.configuration.DiscoverySortFieldConfiguration">
         <property name="metadataField" value="dc.date.issued"/>
         <property name="type" value="date"/>
     </bean>
@@ -764,13 +775,13 @@
 	<bean id="sortAdvisor" class="org.dspace.discovery.configuration.DiscoverySortFieldConfiguration">
         <property name="metadataField" value="dc.advisor"/>
     </bean>
-
+	
 	<bean id="sortProgram" class="org.dspace.discovery.configuration.DiscoverySortFieldConfiguration">
         <property name="metadataField" value="dc.publisher.program"/>
     </bean>
-
+	
 	<bean id="sortType" class="org.dspace.discovery.configuration.DiscoverySortFieldConfiguration">
         <property name="metadataField" value="dc.type"/>
     </bean>
-    
+	
 </beans>

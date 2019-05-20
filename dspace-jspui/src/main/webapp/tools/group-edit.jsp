@@ -33,23 +33,43 @@
 <%@ page import="org.dspace.eperson.EPerson" %>
 <%@ page import="org.dspace.eperson.Group"   %>
 <%@ page import="org.dspace.core.Utils" %>
+<%@ page import="java.util.List" %>
 
 <%
     Group group = (Group) request.getAttribute("group");
-    EPerson [] epeople = (EPerson []) request.getAttribute("members");
+    List<EPerson> epeople = (List<EPerson>) request.getAttribute("members");
     
-	Group   [] groups  = (Group   []) request.getAttribute("membergroups");
+	List<Group>   groups  = (List<Group>) request.getAttribute("membergroups");
 	request.setAttribute("LanguageSwitch", "hide");
+        
+    // Is the logged in user an admin or community admin or collection admin
+    Boolean admin = (Boolean)request.getAttribute("is.admin");
+    boolean isAdmin = (admin == null ? false : admin.booleanValue());
+    
+    Boolean communityAdmin = (Boolean)request.getAttribute("is.communityAdmin");
+    boolean isCommunityAdmin = (communityAdmin == null ? false : communityAdmin.booleanValue());
+    
+    Boolean collectionAdmin = (Boolean)request.getAttribute("is.collectionAdmin");
+    boolean isCollectionAdmin = (collectionAdmin == null ? false : collectionAdmin.booleanValue());
+    
+    String naviAdmin = "admin";
+    String link = "/dspace-admin";
+    
+    if(!isAdmin && (isCommunityAdmin || isCollectionAdmin))
+    {
+        naviAdmin = "community-or-collection-admin";
+        link = "/tools";
+    }
 %>
 
 <dspace:layout style="submission" titlekey="jsp.tools.group-edit.title"
-               navbar="admin"
+               navbar="<%= naviAdmin %>"
                locbar="link"
                parenttitlekey="jsp.administer"
-               parentlink="/dspace-admin"
+               parentlink="<%= link %>"
                nocache="true">
 
-	<h1><fmt:message key="jsp.tools.group-edit.title"/> : <%=group.getName()%> (id: <%=group.getID()%>)
+	<h1><fmt:message key="jsp.tools.group-edit.title"/> : <%=Utils.addEntities(group.getName())%> (id: <%=group.getID()%>)
 	<dspace:popup page="<%= LocaleSupport.getLocalizedMessage(pageContext, \"help.collection-admin\") +\"#groupeditor\"%>"><fmt:message key="jsp.help"/></dspace:popup>
 	</h1>
     <form name="epersongroup" method="post" action="">
@@ -65,18 +85,14 @@
     <input type="hidden" name="group_id" value="<%=group.getID()%>"/>
     
     <div class="row">
-	    <div class="col-md-6"> 
-
-		     <label for="eperson_id"><fmt:message key="jsp.tools.group-edit.eperson"/></label>
-		    <dspace:selecteperson multiple="true" selected="<%= epeople %>"/> 
-
-	     <br/>
-
-		    <label for="eperson_id"><fmt:message key="jsp.tools.group-edit.group"/></label>
-		    <dspace:selectgroup   multiple="true" selected="<%= groups  %>"/>
-
-	    </div>
-    </div>
+		<div class="col-md-12"> 
+			<label for="eperson_id"><fmt:message key="jsp.tools.group-edit.eperson"/></label>
+			<dspace:selecteperson multiple="true" selected="<%= epeople.toArray(new EPerson[epeople.size()]) %>"/>
+		
+			<label for="eperson_id"><fmt:message key="jsp.tools.group-edit.group"/></label>
+			<dspace:selectgroup   multiple="true" selected="<%= groups.toArray(new Group[groups.size()])  %>"/>
+		</div>
+	</div>
 	<br/>
     <div class="row"><input class="btn btn-success col-md-2 col-md-offset-5" type="submit" name="submit_group_update" value="<fmt:message key="jsp.tools.group-edit.update.button"/>" onclick="javascript:finishEPerson();finishGroups();"/></div>
    </form>
