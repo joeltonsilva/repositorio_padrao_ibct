@@ -45,7 +45,7 @@
                                 <a target="_blank" href="<%= request.getContextPath() %>/feedback"></a>
                                 <a href="<%= request.getContextPath() %>/htmlmap"></a></p>
 								<a href=""><img width = "145"
-                                    src="<%= request.getContextPath() %>/image/ibict.png"
+                                    src="<%= request.getContextPath() %>/image/logo-ibict-65.png"
                                     alt="logo-ibict" /></a>
 								<a href=""><img width = "360"
                                     src="<%= request.getContextPath() %>/image/mctic.png"
